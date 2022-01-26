@@ -1,43 +1,33 @@
-use num::complex::Complex;
 
 fn main() {
-    greet_world();
-    let a: i32 = 1;
-    let b: i32 = 3;
-    let c = 5_i32;
-    let mut d = 6i32;
-    println!("The value of d is: {}", d);
-    d = 7;
-    let e = add(add(a, b), add(c, d));
-    println!("(a + b) + (c + d) = {}", e);
-    let (x, mut y): (bool, bool) = (true, false);
-    println!("a = {:?}, b = {:?}", x, y);
-    y = true;
-    assert_eq!(x, y);
-    const MAX_POSITION: u32 = 100_000;
-    let spaces = "  ";
-    let spaces = spaces.len();
-    println!("Spaces length is {}", spaces);
+    let s = String :: from("hello world");
+    let s1 = String :: from("中国");
+    let hello = &s[..5];   
+    let world = &s[6..];  
+    let one = &s1[..3];  
+    print!("{} {}", hello, world); 
+    print!("\n");
+    print!("{}", one); 
 
-    let f = Complex { re: 2.1, im: -1.2 };
-    let h = Complex::new(11.1, 22.2);
-    let result = f + h;
+    let mut s2 = String::new();
+    s2.push_str("hello world");
+    s2.push('!');
+    assert_eq!(s2, "hello world!");
 
-    println!("{} + {}i", result.re, result.im);
+    let s3 = String::from("hello, world");
+    say_hello(&s3);
+    say_hello(&s3[..]);
+    say_hello(&s3.as_str());
+
+    print_str("中国人");
 }
 
-fn greet_world () {
-    let southern_germany = "Grüß Gott!";
-    let chinese = "世界，你好";
-    let english = "World, hello";
+fn say_hello(str: &str) {
+    print!("\n{}", str);
+}
 
-    let regions = [southern_germany, chinese, english];
-
-    for region in regions.iter() {
-        println!("{}", &region);
+fn print_str(str: &str) {
+    for c in str.chars() {
+        print!("\n{}", c);
     }
-}
-
-fn add(i: i32, j: i32) -> i32 {
-    i + j
 }
