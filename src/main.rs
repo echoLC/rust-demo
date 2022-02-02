@@ -1,56 +1,39 @@
 
 fn main() {
-    struct User {
-        active: bool,
-        username: String,
-        email: String,
-        sign_in_count: u64,
-    }
+   let condition = true;
+   let number = if condition {
+       5
+   } else {
+       6
+   };
+   println!("the number value is: {}\n", number);
 
-    let user1 = User {
-        username: String::from("echoLC"),
-        email: String::from("xx@qq.com"),
-        sign_in_count: 30,
-        active: false
-    };
+   for i in 1..= 5 {
+       println!("{}\n", i);
+   }
 
-    let user2 = User {
-        email: String::from("651644100@qq.com"),
-        ..user1
-    };
+   let a = [4, 3, 2, 1];
+   for (index, value) in a.iter().enumerate() {
+    print!("第{}个元素的值是{}\n", index, value); 
+   }
 
-    print!("{}", user2.active);
+   let mut index = 0;
+   for _ in 0..10 {
+       index = index + 1;
+       print!("我执行了{}次\n", index);
+   }
 
-    print_suit(PokerSuit::Diamonds);
-    print_suit(PokerSuit::Hearts);
+   for i in 1..4 {
+       if i == 2 {
+           continue;
+       }
+       println!("{}\n", i);
+   }
 
-    let mut some = Some(5);
-    let absent_num: Option<u32> = None;
-    some = None;
-
-    println!("Option None:{:?}", some);
-
-    let six = plus_one(Some(5));
-    let none = plus_one(None);
-
-    println!("six:{:?},none:{:?}", six, none);
-}
-
-#[derive(Debug)]
-enum PokerSuit {
-    Clubs,
-    Spades,
-    Diamonds,
-    Hearts
-}
-
-fn print_suit (card: PokerSuit) {
-    println!("{:?}", card);
-}
-
-fn plus_one (x: Option<i32>) -> Option<i32> {
-    match x {
-        None => None,
-        Some(i) =>Some(i + 1)
-    }
+   let mut n = 0;
+   while n <= 5 {
+        println!("the n value is: {}", n);
+       n = n + 1;
+   }
+   println!("我跳出了 while 循环，the n value is: {}", n);
 }
