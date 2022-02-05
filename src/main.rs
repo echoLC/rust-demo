@@ -24,9 +24,10 @@ enum Action {
     ChangeColorToRgb(u16, u16, u16)
 }
 
-enum MyEnum {
-    Foo,
-    Bar
+struct Point {
+    x: i32,
+    y: i32,
+    z: i32
 }
 
 fn main() {
@@ -57,6 +58,20 @@ fn main() {
    }
 
    test_macro();
+
+   let point = Point {x: 1, y: 2, z: 3};
+   let Point{x, ..} = point;
+   print!("x value is: {}\n", x);
+
+   let num = Some(4);
+
+   match num {
+    Some(x) if x < 5 => println!("less than five: {}", x),
+    Some(y) => println!("{}", y),
+    None => (),  
+   }
+
+   at_binds();
 }
 
 fn value_in_cents (coins: Coins) -> u8 {
@@ -104,6 +119,30 @@ fn show_actions () {
 
 // match! 宏
 fn test_macro () {
-    let values = vec![MyEnum::Foo, MyEnum::Bar, MyEnum::Foo, MyEnum::Bar];
-    let filter_values = values.iter().filter(|x| matches!(x, MyEnum::Foo));
+    let age = Some(30);
+    println!("在匹配前，age是{:?}",age);
+    match  age {
+        Some(age) => println!("匹配出来的age是{}",age),
+        _ => ()
+    }
+    println!("在匹配后，age是{:?}",age);
+}
+
+// @ 绑定
+fn at_binds () {
+    enum Message {
+        Hello { id: i32 }
+    }
+    let msg = Message::Hello{id: 5};
+    match msg {
+        Message::Hello {id: id_var @ 3..= 7} => {
+            println!("Found an id in range: {}", id_var);
+        },
+        Message::Hello { id: 10..=12 } => {
+            println!("Found an id in another range")
+        },
+        Message::Hello { id} => {
+            println!("Found some other id: {}", id);
+        }
+    }
 }
