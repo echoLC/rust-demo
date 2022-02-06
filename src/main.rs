@@ -1,13 +1,17 @@
 use std::fmt::Display;
+use std::ops::Add;
 
-struct Point<T> {
+#[derive(Debug)]
+struct Point<T: Add<T, Output = T>> {
     x: T,
     y: T
 }
 
-impl <T> Point<T> {
-    fn x(&self) -> &T {
-        &self.x
+impl <T: Add<T, Output = T>> Add for Point<T> {
+    type Output = Point<T>;
+
+    fn add(self, p: Point<T>) -> Point<T> {
+        Point { x: self.x + p.x, y: self.y + p.y }
     }
 }
 
@@ -105,12 +109,14 @@ fn largest<T: PartialOrd + Copy> (list: &[T]) -> T {
     largest
 }
 
+fn add<T: Add<T, Output = T>>(a: T, b: T) -> T {
+    a + b
+}
+
 fn main() {
-    let point = Point {x: 2, y: 2};
     let float = Point {x: 1.0, y: 4.0};
     let f32: Point<f32> = Point {x: 1.0, y: 4.0};
 
-    println!("x value is {}", point.x());
     println!("float x value is {}", float.x);
     println!("f32 distance value is {}", f32.distance_from_origin());
 
@@ -137,6 +143,13 @@ fn main() {
 
     let result = largest(&char_list);
     println!("The largest char is {}", result);
+
+    let p1 = Point{x: 1.1f32, y: 1.1f32};
+    let p2 = Point{x: 2.1f32, y: 2.1f32};
+    println!("{:?}", add(p1, p2));
+    let p3 = Point{x: 1i32, y: 1i32};
+    let p4 = Point{x: 2i32, y: 2i32};
+    println!("{:?}", add(p3, p4));
 }
 
 
