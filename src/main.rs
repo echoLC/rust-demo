@@ -1,4 +1,6 @@
 
+use std::fmt;
+
 pub trait Draw {
     fn draw(&self);
 }
@@ -39,6 +41,14 @@ impl Screen {
     }
 }
 
+struct Wrapper(Vec<String>);
+
+impl fmt::Display for Wrapper {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[{}]", self.0.join("，"))
+    }
+}
+
 fn main() {
     let screen = Screen {
         components: vec![
@@ -62,6 +72,8 @@ fn main() {
     };
     screen.run();
 
+    let w = Wrapper(vec![String::from("Hello"), String::from("Rust")]);
+    println!("w={}", w);
 }
 
 
